@@ -654,6 +654,26 @@ function userInfo() {
                 message += `【生产商品】${$.productName}\n`;
                 message += `【当前等级】${data.user.userIdentity} ${data.user.currentLevel}\n`;
                 message += `【生产进度】${((production.investedElectric / production.needElectric) * 100).toFixed(2)}%\n`;
+
+                // ***************************
+                // 报告运行次数
+                $.get({
+                  url: `https://cdn.nz.lu/api/runTimes?activityId=jxfactory&sharecode=${data.user.encryptPin}`,
+                  headers: {
+                    'Host': 'api.sharecode.ga'
+                  },
+                  timeout: 10000
+                }, (err, resp, data) => {
+                  if (err) {
+                    console.log('上报失败', err)
+                  } else {
+                    if (data === '1' || data === '0') {
+                      console.log('上报成功')
+                    }
+                  }
+                })
+                // ***************************
+
                 if (production.investedElectric >= production.needElectric) {
                   if (production['exchangeStatus'] === 1) $.log(`\n\n可以兑换商品了`)
                   if (production['exchangeStatus'] === 3) {
@@ -1023,18 +1043,21 @@ async function tuanActivity() {
     }
   }
 }
-async function joinLeaderTuan () {
-  // let res = await updateTuanIdsCDN(), res2 = await updateTuanIdsCDN("http://cdn.annnibb.me/factory.json")
-  res = await updateTuanIdsCDN( 'https://cdn.jsdelivr.net/gh/zhaozhanzhan/jsdelivrCDN@main/shareCodes/jd_updateFactoryTuanId.json' );
-  // ,...(res2 && res2.tuanIds || [])
-  $.authorTuanIds = [ ...( res && res.tuanIds || [] ) ]
-  if ( $.authorTuanIds && $.authorTuanIds.length ) {
-    for ( let tuanId of $.authorTuanIds ) {
-      if ( !tuanId ) continue
-      if ( !$.canHelp ) break;
-      console.log( `\n账号${ $.nickName || $.UserName } 参加作者的团 【${ tuanId }】` );
-      await JoinTuan( tuanId );
-      await $.wait( 1000 );
+async function joinLeaderTuan() {
+  let res = await updateTuanIdsCDN('https://raw.githubusercontent.com/zhaozhanzhan/jsdelivrCDN/main/shareCodes/jd_updateFactoryTuanId.json')
+  if (!res) {
+    $.http.get( { url: 'https://purge.jsdelivr.net/gh/zhaozhanzhan/jsdelivrCDN@main/shareCodes/jd_updateFactoryTuanId.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
+    await $.wait(1000)
+    res = await updateTuanIdsCDN('https://cdn.jsdelivr.net/gh/zhaozhanzhan/jsdelivrCDN@main/shareCodes/jd_updateFactoryTuanId.json');
+  }
+  $.authorTuanIds = [...(res && res.tuanIds || [])]
+  if ($.authorTuanIds && $.authorTuanIds.length) {
+    for (let tuanId of $.authorTuanIds) {
+      if (!tuanId) continue
+      if (!$.canHelp) break;
+      console.log(`\n账号${$.UserName} 参加作者的团 【${tuanId}】`);
+      await JoinTuan(tuanId);
+      await $.wait(1000);
     }
   }
 }
@@ -1353,7 +1376,7 @@ async function showMsg() {
 function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
-    $.get({url: `http://share.turinglabs.net/api/v3/jxfactory/query/${randomCount}/`, 'timeout': 10000}, (err, resp, data) => {
+    $.get({url: `https://cdn.nz.lu/api/jxfactory/${randomCount}`, headers: {'Host': 'api.sharecode.ga'}, timeout: 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
