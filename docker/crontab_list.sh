@@ -161,7 +161,7 @@
 #柠檬众筹好物上新
 20 12,14 * * * * * * node /scripts/jd_hwsx.js >> /scripts/logs/jd_hwsx.log 2>&1
 #点点券
-10 0,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.log 2>&1
+10 0,6,7,10,20 * * * node /scripts/jd_necklace.js >> /scripts/logs/jd_necklace.log 2>&1
 #狂欢欧洲杯
 15 8,12 * * * node /scripts/jd_europeancup.js >> /scripts/logs/jd_europeancup.log 2>&1
 #柠檬京东零食街
