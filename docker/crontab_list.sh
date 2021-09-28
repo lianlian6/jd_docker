@@ -234,3 +234,5 @@
 15 3,6 * * * node /scripts/jd_connoisseur.js >> /scripts/logs/jd_connoisseur.log 2>&1
 #京东小魔方
 15 3,6 * * * node /scripts/jd_mf.js >> /scripts/logs/jd_mf.log 2>&1
+#东东世界
+15 3,9 * * * node /scripts/jd_ddworld.js >> /scripts/logs/jd_ddworld.log 2>&1
