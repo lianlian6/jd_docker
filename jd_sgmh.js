@@ -301,7 +301,7 @@ function shareCodesFormat() {
     const readShareCodeRes = await readShareCode();
     // console.log(readShareCodeRes)
     if (readShareCodeRes && readShareCodeRes.code === 200) {
-      $.newShareCodes = [...new Set([...$.newShareCodes, ...([])])];
+      $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
     }
     console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify($.newShareCodes)}`)
     resolve();
@@ -314,7 +314,7 @@ function readShareCode() {
     $.get({
       url: `https://cdn.nz.lu/api/sgmh/${randomCount}`,
       headers: {
-        'Host':'api.sharecode.ga'
+        'Host':'api.jdsharecode.xyz'
       },
       timeout: 10000
     }, (err, resp, data) => {
