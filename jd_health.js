@@ -143,7 +143,7 @@ function getTaskDetail(taskId = '') {
                   $.get({
                   url: `https://cdn.nz.lu/api/runTimes?activityId=health&sharecode=${data?.data?.result?.taskVos[0].assistTaskDetailVo.taskToken}`,
                   headers: {
-                    'Host': 'api.sharecode.ga'
+                    'Host': 'api.jdsharecode.xyz'
                   },
                   timeout: 10000
                   }, (err, resp, data) => {
@@ -348,7 +348,7 @@ function readShareCode() {
     $.get({
       url: `https://cdn.nz.lu/api/health/${randomCount}`,
       headers: {
-        'Host': 'api.sharecode.ga'
+        'Host': 'api.jdsharecode.xyz'
       },
       timeout: 10000
     }, (err, resp, data) => {
@@ -386,7 +386,7 @@ function shareCodesFormat() {
     }
     const readShareCodeRes = await readShareCode();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
-      $.newShareCodes = [...new Set([...$.newShareCodes, []])];
+      $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
     }
     console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify($.newShareCodes)}`)
     resolve();
