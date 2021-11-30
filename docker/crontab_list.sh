@@ -256,3 +256,5 @@
 10 8 * * * node /scripts/jd_sign_graphics1.js >>/scripts/logs/jd_sign_graphics1.log 2>&1
 #美丽研究院--兑换
 1 7,12,19 * * * node /scripts/jd_beauty_ex.js >>/scripts/logs/jd_beauty_ex.log 2>&1
+#京东饭粒
+18 7,12,19 * * * node /scripts/jd_fanli.js >>/scripts/logs/jd_fanli.log 2>&1
