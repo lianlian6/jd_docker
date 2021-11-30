@@ -250,3 +250,5 @@
 0 0,12,18,20 * * * node /scripts/jd_redEnvelope.js >>/scripts/logs/jd_redEnvelope.log 2>&1
 #财富岛珍珠兑换
 59 0-23/1 * * * node /scripts/jd_cfd_pearl_ex.js >>/scripts/logs/jd_cfd_pearl_ex.log 2>&1
+#京豆兑换为喜豆
+59 0-23/1 * * * node /scripts/jd_exchangejxbeans.js >>/scripts/logs/jd_exchangejxbeans.log 2>&1
