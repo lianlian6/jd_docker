@@ -252,3 +252,5 @@
 59 0-23/1 * * * node /scripts/jd_cfd_pearl_ex.js >>/scripts/logs/jd_cfd_pearl_ex.log 2>&1
 #京豆兑换为喜豆
 59 0-23/1 * * * node /scripts/jd_exchangejxbeans.js >>/scripts/logs/jd_exchangejxbeans.log 2>&1
+#京东签到翻牌
+10 8 * * * node /scripts/jd_sign_graphics1.js >>/scripts/logs/jd_sign_graphics1.log 2>&1
