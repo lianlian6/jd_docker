@@ -216,6 +216,8 @@
 20 7,9,17,20 * * * node /scripts/jd_joy_park_task.js >>/scripts/logs/jd_joy_park_task.log 2>&1
 #汪汪乐园每日助力
 30 23 * * * node /scripts/jd_joy_park_help.js >>/scripts/logs/jd_joy_park_help.log 2>&1
+#汪汪乐园提现
+15 10 * * * node /scripts/jd_joy_tx.js >>/scripts/logs/jd_joy_tx.log 2>&1
 #京东手机狂欢城
 0 0-18/6 * * * node /scripts/jd_carnivalcity.js >>/scripts/logs/jd_carnivalcity.log 2>&1
 #京东手机狂欢城助力
