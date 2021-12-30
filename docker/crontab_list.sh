@@ -280,3 +280,5 @@
 19 5 * * * node /scripts/jd_jchsign.js >>/scripts/logs/jd_jchsign.log 2>&1
 #京东特价翻翻乐
 20 0-23/3 * * * node /scripts/jd_jdtj_winner.js >>/scripts/logs/jd_jdtj_winner.log 2>&1
+#见缝插针
+15 10 * * * node /scripts/jd_jfcz.js >>/scripts/logs/jd_jfcz.log 2>&1
