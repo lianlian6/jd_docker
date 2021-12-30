@@ -24,7 +24,7 @@ const $ = new Env('京东赚赚');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-let helpAuthor=true; // 帮助作者
+let helpAuthor = true; // 帮助作者
 const randomCount = $.isNode() ? 20 : 5;
 let jdNotify = true; // 是否关闭通知，false打开通知推送，true关闭通知推送
 //IOS等用户直接用NobyDa的jd cookie
@@ -99,15 +99,12 @@ async function jdWish() {
   $.nowNum = parseInt($.totalNum)
   for (let i = 0; i < $.taskList.length; ++i) {
     let task = $.taskList[i]
-    if (task['taskId'] === 1 && task['status'] !== 2) {
+    if (task['taskId'] !== 3 && task['status'] !== 2) {
       console.log(`去做任务：${task.taskName}`)
-      await doTask({"taskId": task['taskId'],"mpVersion":"3.4.0"})
-    } else if (task['taskId'] !== 3 && task['status'] !== 2) {
-      console.log(`去做任务：${task.taskName}`)
-      if(task['itemId'])
-        await doTask({"itemId":task['itemId'],"taskId":task['taskId'],"mpVersion":"3.4.0"})
+      if (task['itemId'])
+        await doTask({ "itemId": task['itemId'], "taskId": task['taskId'], "taskToken": task["taskToken"], "mpVersion": "3.4.0" })
       else
-        await doTask({"taskId": task['taskId'],"mpVersion":"3.4.0"})
+        await doTask({ "taskId": task['taskId'], "taskToken": task["taskToken"], "mpVersion": "3.4.0" })
       await $.wait(3000)
     }
   }
@@ -168,11 +165,14 @@ function getTaskList(flag = false) {
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
-            $.taskList = data.data.taskDetailResList
             $.totalNum = data.data.totalNum
+            $.taskList = data?.data?.taskDetailResList ?? []
+            if (data.data.signTaskRes) {
+              $.taskList.push(data.data.signTaskRes)
+            }
             $.totalBeanNum = data.data.totalBeanNum
-            if (flag && $.taskList.filter(item => !!item && item['taskId']=== 3) && $.taskList.filter(item => !!item && item['taskId']=== 3).length) {
-              console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${$.taskList.filter(item => !!item && item['taskId']=== 3)[0]['itemId']}\n`);
+            if (flag && $.taskList.filter(item => !!item && item['taskId'] === 3) && $.taskList.filter(item => !!item && item['taskId'] === 3).length) {
+              console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${$.taskList.filter(item => !!item && item['taskId'] === 3)[0]['itemId']}\n`);
             }
           }
         }
@@ -225,47 +225,47 @@ async function helpFriends() {
     await doTask({"itemId": code, "taskId": "3", "mpVersion": "3.4.0"}, "doHelpTask")
   }
 }
-// function readShareCode() {
-//   console.log(`开始`)
-//   return new Promise(async resolve => {
-//     $.get({url: `https://code.chiang.fun/api/v1/jd/jdzz/read/${randomCount}/`, 'timeout': 10000}, (err, resp, data) => {
-//       try {
-//         if (err) {
-//           console.log(`${JSON.stringify(err)}`)
-//           console.log(`${$.name} API请求失败，请检查网路重试`)
-//         } else {
-//           if (data) {
-//             console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
-//             data = JSON.parse(data);
-//           }
-//         }
-//       } catch (e) {
-//         $.logErr(e, resp)
-//       } finally {
-//         resolve(data);
-//       }
-//     })
-//     await $.wait(10000);
-//     resolve()
-//   })
-// }
+function readShareCode() {
+  console.log(`开始`)
+  return new Promise(async resolve => {
+    $.get({url: `https://code.chiang.fun/api/v1/jd/jdzz/read/${randomCount}/`, 'timeout': 10000}, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
+            data = JSON.parse(data);
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve(data);
+      }
+    })
+    await $.wait(10000);
+    resolve()
+  })
+}
 //格式化助力码
 function shareCodesFormat() {
   return new Promise(async resolve => {
     // console.log(`第${$.index}个京东账号的助力码:::${$.shareCodesArr[$.index - 1]}`)
     $.newShareCodes = [];
-    // if ($.shareCodesArr[$.index - 1]) {
-    //   $.newShareCodes = $.shareCodesArr[$.index - 1].split('@');
-    // } else {
-    //   // console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
-    //   const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
-    //   $.newShareCodes = inviteCodes[tempIndex].split('@');
-    // }
-    // const readShareCodeRes = await readShareCode();
-    // if (readShareCodeRes && readShareCodeRes.code === 200) {
-    //   $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
-    // }
-    // console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify($.newShareCodes)}`)
+    if ($.shareCodesArr[$.index - 1]) {
+      $.newShareCodes = $.shareCodesArr[$.index - 1].split('@');
+    } else {
+      console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
+      const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
+      $.newShareCodes = inviteCodes[tempIndex].split('@');
+    }
+    const readShareCodeRes = await readShareCode();
+    if (readShareCodeRes && readShareCodeRes.code === 200) {
+      $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
+    }
+    console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify($.newShareCodes)}`)
     resolve();
   })
 }
