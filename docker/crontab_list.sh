@@ -292,3 +292,5 @@
 10 0 * * * node /scripts/jd_lottery_drew.js >>/scripts/logs/jd_lottery_drew.log 2>&1
 #逛京东会场
 0 0 * * * node /scripts/jd_mall.js >>/scripts/logs/jd_mall.log 2>&1
+#整点红包雨
+0 * * * * node /scripts/jd_redrain.js >>/scripts/logs/jd_redrain.log 2>&1
