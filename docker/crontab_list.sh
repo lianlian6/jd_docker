@@ -270,3 +270,5 @@
 13 6 * * * node /scripts/jd_gold_sign.js >>/scripts/logs/jd_gold_sign.log 2>&1
 #清空购物车
 10 6,22 * * * node /scripts/jd_clean_car.js >>/scripts/logs/jd_clean_car.log 2>&1
+#京东评价
+37 15 * * * node /scripts/jd_evaluation.js >>/scripts/logs/jd_evaluation.log 2>&1
