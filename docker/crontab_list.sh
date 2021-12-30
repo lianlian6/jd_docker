@@ -272,3 +272,5 @@
 10 6,22 * * * node /scripts/jd_clean_car.js >>/scripts/logs/jd_clean_car.log 2>&1
 #京东评价
 37 15 * * * node /scripts/jd_evaluation.js >>/scripts/logs/jd_evaluation.log 2>&1
+#发财挖宝
+40 6,17 * * * node /scripts/jd_fcwb_help.js >>/scripts/logs/jd_fcwb_help.log 2>&1
