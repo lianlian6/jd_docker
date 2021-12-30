@@ -284,3 +284,5 @@
 20 0-23/3 * * * node /scripts/jd_jdtj_winner.js >>/scripts/logs/jd_jdtj_winner.log 2>&1
 #见缝插针
 15 10 * * * node /scripts/jd_jfcz.js >>/scripts/logs/jd_jfcz.log 2>&1
+#京东金融每周领取权益活动
+10 17 6 12 * node /scripts/jd_jr_draw.js >>/scripts/logs/jd_jr_draw.log 2>&1
