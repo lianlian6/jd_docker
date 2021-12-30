@@ -278,3 +278,5 @@
 40 6,17 * * * node /scripts/jd_fcwb_help.js >>/scripts/logs/jd_fcwb_help.log 2>&1
 #京车会签到
 19 5 * * * node /scripts/jd_jchsign.js >>/scripts/logs/jd_jchsign.log 2>&1
+#京东特价翻翻乐
+20 0-23/3 * * * node /scripts/jd_jdtj_winner.js >>/scripts/logs/jd_jdtj_winner.log 2>&1
