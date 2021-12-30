@@ -276,3 +276,5 @@
 37 15 * * * node /scripts/jd_evaluation.js >>/scripts/logs/jd_evaluation.log 2>&1
 #发财挖宝
 40 6,17 * * * node /scripts/jd_fcwb_help.js >>/scripts/logs/jd_fcwb_help.log 2>&1
+#京车会签到
+19 5 * * * node /scripts/jd_jchsign.js >>/scripts/logs/jd_jchsign.log 2>&1
