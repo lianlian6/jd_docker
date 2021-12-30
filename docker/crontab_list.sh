@@ -286,3 +286,5 @@
 15 10 * * * node /scripts/jd_jfcz.js >>/scripts/logs/jd_jfcz.log 2>&1
 #京东金融每周领取权益活动
 10 17 6 12 * node /scripts/jd_jr_draw.js >>/scripts/logs/jd_jr_draw.log 2>&1
+#京东赚京豆一分钱抽奖
+10 0 * * * node /scripts/jd_lottery_drew.js >>/scripts/logs/jd_lottery_drew.log 2>&1
