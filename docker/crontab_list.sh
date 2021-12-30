@@ -248,6 +248,8 @@
 5 * * * * node /scripts/jd_cfd_mooncake.js >>/scripts/logs/jd_cfd_mooncake.log 2>&1
 #京喜财富岛合成生鲜
 45 * * * * node /scripts/jd_cfd_fresh.js >>/scripts/logs/jd_cfd_fresh.log 2>&1
+#京喜财富岛合成珍珠
+30 0-23/2 * * * node /scripts/jd_cfd_pearl.js >>/scripts/logs/jd_cfd_pearl.log 2>&1
 #攒金币 赢大礼
 22 0,8 * * * node /scripts/jd_GoldcoinToGift.js >>/scripts/logs/jd_GoldcoinToGift.log 2>&1
 #京享红包
