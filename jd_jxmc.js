@@ -34,6 +34,13 @@ $.inviteCodeList = [];
 let cookiesArr = [];
 let UA, token, UAInfo = {}
 $.appId = 10028;
+function oc ( fn, defaultVal ) {//optioanl chaining
+  try {
+    return fn()
+  } catch ( e ) {
+    return undefined
+  }
+}
 let cardinfo = {
   "16": "小黄鸡",
   "17": "辣子鸡",
@@ -87,7 +94,7 @@ if ( $.isNode() ) {
     $.isLogin = true;
     $.nickName = '';
     UA = `jdpingou;iPhone;4.13.0;14.4.2;${ randomString( 40 ) };network/wifi;model/iPhone10,2;appBuild/100609;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/${ Math.random * 98 + 1 };pap/JA2019_3111789;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148`
-    UAInfo[ $.UserName ] = UA
+    UAInfo[ $.UserName ] = UA;
     await TotalBean();
     $.UserName = decodeURIComponent( $.cookie.match( /pt_pin=([^; ]+)(?=;?)/ ) && $.cookie.match( /pt_pin=([^; ]+)(?=;?)/ )[ 1 ] );
     console.log( `\n*****开始【京东账号${ $.index }】${ $.nickName || $.UserName }*****\n` );
@@ -103,12 +110,7 @@ if ( $.isNode() ) {
     await pasture();
     await $.wait( 2000 );
   }
-  $.res = await getAuthorShareCode( 'https://raw.githubusercontent.com/zhaozhanzhan/jsdelivrCDN/master/shareCodes/jxmc.json' )
-  if ( !$.res ) {
-    $.http.get( { url: 'https://purge.jsdelivr.net/gh/zhaozhanzhan/jsdelivrCDN@main/shareCodes/jxmc.json' } ).then( ( resp ) => { } ).catch( ( e ) => console.log( '刷新CDN异常', e ) );
-    await $.wait( 1000 )
-    $.res = await getAuthorShareCode( 'https://cdn.jsdelivr.net/gh/zhaozhanzhan/jsdelivrCDN@main/shareCodes/jxmc.json' )
-  }
+  $.res = await getAuthorShareCode();
   await shareCodesFormat()
   for ( let i = 0; i < cookiesArr.length; i++ ) {
     $.cookie = cookiesArr[ i ];
@@ -157,7 +159,7 @@ async function pasture () {
         console.log( `\n温馨提示：${ $.UserName } 请先手动完成【新手指导任务】再运行脚本再运行脚本\n` );
         return;
       }
-      $.currentStep = $.homeInfo?.finishedtaskId
+      $.currentStep = oc( () => $.homeInfo.finishedtaskId )
       console.log( `打印新手流程进度：当前进度：${ $.currentStep }，下一流程：${ $.homeInfo.maintaskId }` )
       if ( $.homeInfo.maintaskId !== "pause" || isNew( $.currentStep ) ) {
         console.log( `开始初始化` )
@@ -166,7 +168,7 @@ async function pasture () {
         for ( let i = 0; i < 20; i++ ) {
           if ( $.DoMainTask.maintaskId !== "pause" ) {
             await $.wait( 2000 )
-            $.currentStep = $.DoMainTask?.finishedtaskId
+            $.currentStep = oc( () => $.DoMainTask.finishedtaskId )
             $.step = $.DoMainTask.maintaskId
             await takeGetRequest( 'DoMainTask' );
           } else if ( isNew( $.currentStep ) ) {
@@ -188,13 +190,13 @@ async function pasture () {
           if ( vo.completedTimes >= vo.configTargetTimes ) {
             console.log( `助力已满，不上传助力码` )
           } else {
-            await uploadShareCode( $.homeInfo.sharekey )
+            // await uploadShareCode( $.homeInfo.sharekey )
             $.inviteCodeList.push( $.homeInfo.sharekey );
             await $.wait( 2000 )
           }
         }
       }
-      const petNum = ( $.homeInfo?.petinfo || [] ).length
+      const petNum = ( oc( () => $.homeInfo.petinfo ) || [] ).length
       await takeGetRequest( 'GetCardInfo' );
       if ( $.GetCardInfo && $.GetCardInfo.cardinfo ) {
         let msg = '';
@@ -650,7 +652,7 @@ function dealReturn ( type, data ) {
         $.homeInfo = data.data;
         $.activeid = $.homeInfo.activeid
         $.activekey = $.homeInfo.activekey || null
-        $.coins = $.homeInfo?.coins || 0;
+        $.coins = oc( () => $.homeInfo.coins ) || 0;
         if ( $.homeInfo.giftcabbagevalue ) {
           console.log( `登陆获得白菜：${ $.homeInfo.giftcabbagevalue } 颗` );
         }
@@ -861,25 +863,25 @@ function randomString ( e ) {
   return n
 }
 
-function getAuthorShareCode ( url ) {
+function getAuthorShareCode () {
   return new Promise( async resolve => {
     const options = {
-      url: `${ url }?${ new Date() }`, "timeout": 10000, headers: {
+      url: `https://gitee.com/zhaozhanzhan520/shareCodes/raw/master/jdJxmc.json?${ new Date() }`, "timeout": 10000, headers: {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }
     };
-    if ( $.isNode() && process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT ) {
-      const tunnel = require( "tunnel" );
-      const agent = {
-        https: tunnel.httpsOverHttp( {
-          proxy: {
-            host: process.env.TG_PROXY_HOST,
-            port: process.env.TG_PROXY_PORT * 1
-          }
-        } )
-      }
-      Object.assign( options, { agent } )
-    }
+    // if ( $.isNode() && process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT ) {
+    //   const tunnel = require( "tunnel" );
+    //   const agent = {
+    //     https: tunnel.httpsOverHttp( {
+    //       proxy: {
+    //         host: process.env.TG_PROXY_HOST,
+    //         port: process.env.TG_PROXY_PORT * 1
+    //       }
+    //     } )
+    //   }
+    //   Object.assign( options, { agent } )
+    // }
     $.get( options, async ( err, resp, data ) => {
       try {
         resolve( JSON.parse( data ) )
