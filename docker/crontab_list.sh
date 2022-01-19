@@ -294,3 +294,5 @@
 0 0 * * * node /scripts/jd_mall.js >>/scripts/logs/jd_mall.log 2>&1
 #整点红包雨
 0 * * * * node /scripts/jd_redrain.js >>/scripts/logs/jd_redrain.log 2>&1
+#年货节红包
+0 0,10,20 * * * node /scripts/jd_nhRedEnvelope.js >>/scripts/logs/jd_nhRedEnvelope.log 2>&1
