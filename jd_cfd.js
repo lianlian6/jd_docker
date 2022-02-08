@@ -156,8 +156,10 @@ async function cfd () {
     await getTakeAggrPage( 'wxsign' )
 
     //使用道具
-    await $.wait( 2000 )
-    await GetPropCardCenterInfo()
+    if ( new Date().getHours() < 22 ) {
+      await $.wait( 2000 )
+      await GetPropCardCenterInfo()
+    }
 
     //助力奖励
     await $.wait( 2000 )
@@ -1144,7 +1146,7 @@ function getUserInfo ( showInvite = true ) {
             console.log( `财富岛好友互助码每次运行都变化,旧的当天有效` );
             console.log( `\n【京东账号${ $.index }（${ $.UserName }）的${ $.name }好友互助码】${ strMyShareId }` );
             $.shareCodes.push( strMyShareId )
-            await uploadShareCode( strMyShareId )
+            // await uploadShareCode( strMyShareId )
           }
           $.info = {
             ...$.info,
