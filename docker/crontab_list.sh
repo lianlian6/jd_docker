@@ -296,3 +296,5 @@
 0 * * * * node /scripts/jd_redrain.js >>/scripts/logs/jd_redrain.log 2>&1
 #年货节红包
 0 0,10,20 * * * node /scripts/jd_nhRedEnvelope.js >>/scripts/logs/jd_nhRedEnvelope.log 2>&1
+#京东到家果园
+10 0,3,8,11,17 * * * node /scripts/jd_djfruit.js >>/scripts/logs/jd_djfruit.log 2>&1
