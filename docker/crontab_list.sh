@@ -304,3 +304,5 @@
 10 0 * * * node /scripts/jd_djbean.js >>/scripts/logs/jd_djbean.log 2>&1
 #京东到家鲜豆庄园
 11 0 * * * node /scripts/jd_djplantBeans.js >>/scripts/logs/jd_djplantBeans.log 2>&1
+#京东到家鲜豆庄园收水滴
+7 */1 * * * node /scripts/jd_djgetPoints.js >>/scripts/logs/jd_djgetPoints.log 2>&1
