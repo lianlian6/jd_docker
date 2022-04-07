@@ -199,7 +199,7 @@
 #柠檬发财大赢家
 0,2 0 * * * node /scripts/jd_fcdyj.js >>/scripts/logs/jd_fcdyj.log 2>&1
 #京东签到图形验证
-10 9 * * * node /scripts/jd_signGraphics.js >>/scripts/logs/jd_signGraphics.log 2>&1
+10 6 * * * node /scripts/jd_signGraphics.js >>/scripts/logs/jd_signGraphics.log 2>&1
 #柠檬伊利云养牛
 0 12 * * * node /scripts/jd_ylyn.js >>/scripts/logs/jd_ylyn.log 2>&1
 #全民抢京豆
@@ -209,7 +209,7 @@
 #粉丝互动
 1 8 * * * node /scripts/jd_wxFans.js >>/scripts/logs/jd_wxFans.log 2>&1
 #店铺签到
-10 8 * * * node /scripts/jd_dpqd.js >>/scripts/logs/jd_dpqd.log 2>&1
+10 7 * * * node /scripts/jd_dpqd.js >>/scripts/logs/jd_dpqd.log 2>&1
 #京东摇钱树助力
 30 * * * * node /scripts/jd_moneyTree_help.js >>/scripts/logs/jd_moneyTree_help.log 2>&1
 #汪汪乐园养joy
@@ -225,7 +225,7 @@
 #京东手机狂欢城助力
 10 0,8 * * * node /scripts/jd_carnivalcity_help.js >>/scripts/logs/jd_carnivalcity_help.log 2>&1
 #京喜签到
-20 1,8 * * * node /scripts/jd_jxsign.js >>/scripts/logs/jd_jxsign.log 2>&1
+20 1,3 * * * node /scripts/jd_jxsign.js >>/scripts/logs/jd_jxsign.log 2>&1
 #京喜签到喜豆
 30 2,9 * * * node /scripts/jd_jxSignXd.js >>/scripts/logs/jd_jxSignXd.log 2>&1
 #女装盲盒抽京豆
@@ -267,7 +267,7 @@
 #京豆兑换为喜豆
 59 0-23/1 * * * node /scripts/jd_exchangejxbeans.js >>/scripts/logs/jd_exchangejxbeans.log 2>&1
 #京东签到翻牌
-10 8 * * * node /scripts/jd_sign_graphics1.js >>/scripts/logs/jd_sign_graphics1.log 2>&1
+10 6 * * * node /scripts/jd_sign_graphics1.js >>/scripts/logs/jd_sign_graphics1.log 2>&1
 #美丽研究院--兑换
 1 7,12,19 * * * node /scripts/jd_beauty_ex.js >>/scripts/logs/jd_beauty_ex.log 2>&1
 #京东饭粒
