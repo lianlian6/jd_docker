@@ -1,7 +1,15 @@
-/**
+/*
+ * @Description: 文件描述信息
+ * @Version: 1.0.0
+ * @Author: zhao zhan zhan
+ * @Date: 2022-04-07 15:18:22
+ * @LastEditors: zhao zhan zhan
+ * @LastEditTime: 2022-04-07 15:19:40
+ * @FilePath: \JdDocker\jd_exchangejxbeans.js
+ */
+/*
 过期京豆兑换为喜豆
-cron 33 9 * * * jd_exchangejxbeans.js
-TG频道：https://t.me/sheeplost
+33 10 * * * jd_exchangejxbeans.js
 */
 const $ = new Env( '京豆兑换为喜豆' );
 const notify = $.isNode() ? require( './sendNotify' ) : '';
