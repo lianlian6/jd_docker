@@ -306,3 +306,5 @@
 11 0 * * * node /scripts/jd_djplantBeans.js >>/scripts/logs/jd_djplantBeans.log 2>&1
 #京东到家鲜豆庄园收水滴
 7 */1 * * * node /scripts/jd_djgetPoints.js >>/scripts/logs/jd_djgetPoints.log 2>&1
+#微信签到领现金
+16 0,5 * * * node /scripts/jd_cash_wx.js >>/scripts/logs/jd_cash_wx.log 2>&1
