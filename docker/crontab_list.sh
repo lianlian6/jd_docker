@@ -207,7 +207,7 @@
 #MM领京豆
 21 9 * * * node /scripts/jd_ljd.js >>/scripts/logs/jd_ljd.log 2>&1
 #粉丝互动
-1 8 * * * node /scripts/jd_wxFans.js >>/scripts/logs/jd_wxFans.log 2>&1
+10 1 * * * node /scripts/jd_wxFans.js >>/scripts/logs/jd_wxFans.log 2>&1
 #店铺签到
 10 7 * * * node /scripts/jd_dpqd.js >>/scripts/logs/jd_dpqd.log 2>&1
 #京东摇钱树助力
