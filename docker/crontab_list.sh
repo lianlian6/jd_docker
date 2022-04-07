@@ -310,3 +310,5 @@
 16 0,5 * * * node /scripts/jd_cash_wx.js >>/scripts/logs/jd_cash_wx.log 2>&1
 #微信签到领现金
 1 0,18 * * * ts-node /scripts/jd_jinli_hongbao.ts >>/scripts/logs/jd_jinli_hongbao.log 2>&1
+#京享周周乐
+2 6 * * 5 node /scripts/jd_xs_zzl.js >>/scripts/logs/jd_xs_zzl.log 2>&1
