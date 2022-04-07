@@ -312,3 +312,5 @@
 1 0,18 * * * ts-node /scripts/jd_jinli_hongbao.ts >>/scripts/logs/jd_jinli_hongbao.log 2>&1
 #京享周周乐
 2 6 * * 5 node /scripts/jd_xs_zzl.js >>/scripts/logs/jd_xs_zzl.log 2>&1
+#赚京豆-瓜分京豆
+10 0,9 * * * node /scripts/jd_zjd.js >>/scripts/logs/jd_zjd.log 2>&1
