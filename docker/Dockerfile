@@ -41,7 +41,7 @@ ENV https_proxy ${HTTP_PROXY}
 ENV DEFAULT_LIST_FILE=crontab_list.sh \
     CUSTOM_LIST_MERGE_TYPE=append \
     COOKIES_LIST=/scripts/logs/cookies.list \
-    REPO_URL=https://gitee.com/lianlian6/jd_docker.git \
+    REPO_URL=git@gitee.com:lianlian6/jd_docker.git \
     REPO_BRANCH=master
 
 RUN set -ex
