@@ -41,11 +41,11 @@ ENV https_proxy ${HTTP_PROXY}
 ENV DEFAULT_LIST_FILE=crontab_list.sh \
     CUSTOM_LIST_MERGE_TYPE=append \
     COOKIES_LIST=/scripts/logs/cookies.list \
-    REPO_URL=git@gitee.com:lianlian6/jd_docker.git \
+    REPO_URL=https://gitee.com/lianlian6/jd_docker.git \
     REPO_BRANCH=master
 
-RUN set -ex
-RUN echo $REPO_URL 
+RUN set -ex 
+RUN echo $http_proxy 
 RUN echo -e "https://mirrors.ustc.edu.cn/alpine/latest-stable/main\nhttps://mirrors.ustc.edu.cn/alpine/latest-stable/community" > /etc/apk/positories 
 RUN apk update 
 RUN apk upgrade 
@@ -58,7 +58,7 @@ RUN mkdir -p /root/.ssh
 RUN echo -e $KEY > /root/.ssh/id_rsa 
 RUN chmod 600 /root/.ssh/id_rsa 
 RUN ssh-keyscan gitee.com > /root/.ssh/known_hosts 
-RUN git clone -b $REPO_BRANCH $REPO_URL /scripts 
+RUN git clone -b $REPO_BRANCH https://gitee.com/lianlian6/jd_docker.git /scripts 
 RUN cd /scripts 
 RUN mkdir logs 
 RUN npm config set registry https://registry.npm.taobao.org 
