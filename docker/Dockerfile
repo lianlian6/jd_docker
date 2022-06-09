@@ -44,27 +44,27 @@ ENV DEFAULT_LIST_FILE=crontab_list.sh \
     REPO_URL=https://gitee.com/lianlian6/jd_docker.git \
     REPO_BRANCH=master
 
-RUN set -ex \
-    && echo $http_proxy \
-    && echo -e "https://mirrors.ustc.edu.cn/alpine/latest-stable/main\nhttps://mirrors.ustc.edu.cn/alpine/latest-stable/community" > /etc/apk/repositories \
-    && apk update \
-    && apk upgrade \
-    && apk add --no-cache bash tzdata git moreutils curl jq openssh-client \
-    && apk add --no-cache make gcc g++ python3-dev pkgconfig pixman-dev cairo-dev pango-dev libjpeg-turbo-dev giflib-dev \
-    && rm -rf /var/cache/apk/* \
-    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo "Asia/Shanghai" > /etc/timezone \
-    && mkdir -p /root/.ssh \
-    && echo -e $KEY > /root/.ssh/id_rsa \
-    && chmod 600 /root/.ssh/id_rsa \
-    && ssh-keyscan gitee.com > /root/.ssh/known_hosts \
-    && git clone -b $REPO_BRANCH $REPO_URL /scripts \
-    && cd /scripts \
-    && mkdir logs \
-    && npm config set registry https://registry.npm.taobao.org \
-    && npm install \
-    && cp /scripts/docker/docker_entrypoint.sh /usr/local/bin \
-    && chmod +x /usr/local/bin/docker_entrypoint.sh
+RUN set -ex 
+RUN echo $http_proxy 
+RUN echo -e "https://mirrors.ustc.edu.cn/alpine/latest-stable/main\nhttps://mirrors.ustc.edu.cn/alpine/latest-stable/community" > /etc/apk/positories 
+RUN apk update 
+RUN apk upgrade 
+RUN apk add --no-cache bash tzdata git moreutils curl jq openssh-client 
+RUN apk add --no-cache make gcc g++ python3-dev pkgconfig pixman-dev cairo-dev pango-dev libjpeg-turbo-dev giflib-dev 
+RUN rm -rf /var/cache/apk/* 
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+RUN echo "Asia/Shanghai" > /etc/timezone 
+RUN mkdir -p /root/.ssh 
+RUN echo -e $KEY > /root/.ssh/id_rsa 
+RUN chmod 600 /root/.ssh/id_rsa 
+RUN ssh-keyscan gitee.com > /root/.ssh/known_hosts 
+RUN git clone -b $REPO_BRANCH $REPO_URL /scripts 
+RUN cd /scripts 
+RUN mkdir logs 
+RUN npm config set registry https://registry.npm.taobao.org 
+RUN npm install 
+RUN cp /scripts/docker/docker_entrypoint.sh /usr/local/bin 
+RUN chmod +x /usr/local/bin/docker_entrypoint.sh
 
 #Add pip install mirror:
 
