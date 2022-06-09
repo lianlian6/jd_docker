@@ -44,8 +44,8 @@ ENV DEFAULT_LIST_FILE=crontab_list.sh \
     REPO_URL=https://gitee.com/lianlian6/jd_docker.git \
     REPO_BRANCH=master
 
-RUN set -ex 
-RUN echo $http_proxy 
+RUN set -ex
+RUN echo $REPO_URL 
 RUN echo -e "https://mirrors.ustc.edu.cn/alpine/latest-stable/main\nhttps://mirrors.ustc.edu.cn/alpine/latest-stable/community" > /etc/apk/positories 
 RUN apk update 
 RUN apk upgrade 
