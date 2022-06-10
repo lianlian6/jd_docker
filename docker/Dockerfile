@@ -56,7 +56,7 @@ RUN mkdir /scripts
 COPY ../ /scripts
 RUN cd /scripts 
 RUN mkdir logs 
-RUN npm config set registry https://registry.npm.taobao.org 
+# RUN npm config set registry https://registry.npm.taobao.org 
 RUN npm cache clean --force
 RUN npm install 
 RUN cp /scripts/docker/docker_entrypoint.sh /usr/local/bin 
