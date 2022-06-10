@@ -59,7 +59,7 @@ RUN echo -e $KEY > /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa 
 RUN ssh-keyscan gitee.com > /root/.ssh/known_hosts 
 # RUN git clone -b $REPO_BRANCH $REPO_URL /scripts 
-RUN git clone git@gitee.com:lianlian/jd_docker.git /scripts 
+RUN git clone git@gitee.com:lianlian6/jd_docker.git /scripts 
 RUN cd /scripts 
 RUN mkdir logs 
 RUN npm config set registry https://registry.npm.taobao.org 
