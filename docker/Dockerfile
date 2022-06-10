@@ -55,7 +55,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN mkdir /scripts
 COPY ../ /scripts
 RUN ls
-RUN cd /scripts 
+RUN cd scripts 
 RUN ls
 RUN mkdir logs 
 RUN ls
