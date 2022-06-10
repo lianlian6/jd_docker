@@ -1,9 +1,7 @@
 FROM node:lts-alpine3.12
 
-LABEL AUTHOR="zhaozhanzhan" \
+LABEL AUTHOR="lianlian" \
       VERSION=1.0.1
-
-ARG KEY="-----BEGIN OPENSSH PRIVATE KEY-----b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZWQyNTUxOQAAACB1YDyVJZXNpMSxYtqM9Thzdm21IXA32gQtGhuM8N6kYAAAAJCU9PnNlPT5zQAAAAtzc2gtZWQyNTUxOQAAACB1YDyVJZXNpMSxYtqM9Thzdm21IXA32gQtGhuM8N6kYAAAAEDf36N0KzPl0e6XbsVk9UpoZjRhoORBm7rHNyr6v7N/LXVgPJUllc2kxLFi2oz1OHN2bbUhcDfaBC0aG4zw3qRgAAAACWxpYW5saWFuNgECAwQ=-----END OPENSSH PRIVATE KEY-----"
 
 # FROM # 基础镜像 比如node
 # MAINTAINER # 镜像是谁写的 姓名+邮箱(MAINTAINER已经被废弃)
@@ -54,12 +52,8 @@ RUN apk add --no-cache make gcc g++ python3-dev pkgconfig pixman-dev cairo-dev p
 RUN rm -rf /var/cache/apk/* 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 RUN echo "Asia/Shanghai" > /etc/timezone 
-RUN mkdir -p /root/.ssh 
-RUN echo -e $KEY > /root/.ssh/id_rsa 
-RUN chmod 600 /root/.ssh/id_rsa 
-RUN ssh-keyscan gitee.com > /root/.ssh/known_hosts 
-# RUN git clone -b $REPO_BRANCH $REPO_URL /scripts 
-RUN git clone git@gitee.com:lianlian6/jd_docker.git /scripts 
+RUN mkdir /scripts
+COPY ../ /scripts
 RUN cd /scripts 
 RUN mkdir logs 
 RUN npm config set registry https://registry.npm.taobao.org 
